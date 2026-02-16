@@ -1,0 +1,34 @@
+name: Build Android APK
+on:
+  push:
+    branches: [ main, master ] # Startet bei jedem Upload
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Install Dependencies
+        run: |
+          pip install flet requests
+
+      - name: Build APK
+        run: |
+          flet build apk --project "AKI_KI_System"
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AKI_KI_System_App
+          path: build/apk/*.apk

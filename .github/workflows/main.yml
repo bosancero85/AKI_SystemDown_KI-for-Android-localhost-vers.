@@ -25,7 +25,8 @@ jobs:
 
       - name: Build APK
         run: |
-          flet build apk --project "AKI_KI_System"
+          # Wir nutzen 'yes', um die Frage nach der Flutter-Installation automatisch zu bestätigen
+          yes | flet build apk --project "AKI_KI_System"
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
